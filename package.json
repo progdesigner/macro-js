@@ -1,0 +1,28 @@
+{
+   "name": "Macro",
+   "description": "Macros for nodejs",
+   "version": "0.9.1",
+   "homepage": "http://github.com/progdesigner/macro-js",
+   "repository": "git://github.com/progdesigner/macro-js.git",
+   "author": "ProgDesigner <me@progdesigner.com> (http://progdesigner.com/)",
+   "main": "./index.js",
+   "scripts": {
+      "test-basic": "node test/basic-test.js"
+   },
+   "dependencies": {
+      "uuid": ">= 3.2.1"
+   },
+   "devDependencies": {
+      "babel-cli": "^6.26.0",
+      "babel-preset-es2015": "^6.24.1"
+   },
+   "engines": {
+      "node": ">= 0.4.0"
+   },
+   "licenses": [
+      {
+         "type": "MIT",
+         "url": "http://github.com/progdesigner/macro-js/raw/master/LICENSE"
+      }
+   ]
+}
