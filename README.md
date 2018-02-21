@@ -18,7 +18,42 @@
 
 ```javascript
 
+import Macro from 'node-macro'
 
+let macro = new Macro("TAG_NAME");
+
+macro.add("Action-Basic", (command, info, error) => {
+    command.complete();
+});
+
+macro.add("Action-DelayCompletion", (command, info, error) => {
+    setTimeout(() => {
+        command.complete();
+    }, 500);
+});
+
+macro.delay(750);
+
+macro.add("Action-Retry", (command, info, error) => {
+
+    setTimeout(() => {
+        if (command.executeCount < 3) {
+            command.retry();
+        }
+        else {
+            command.complete();
+        }
+    }, 500);
+});
+
+macro.add("Action-Error", (command, info, error) => {
+    let customError = new Error("error test");
+    command.error(customError);
+});
+
+macro.start((error) => {
+    console.log( "finish", error );
+});
 
 ```
 
