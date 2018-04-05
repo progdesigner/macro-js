@@ -9,7 +9,8 @@ macro.onChange((macro) => {
 });
 
 function renderData() {
-    console.clear();
+    //console.clear();
+
     data.forEach( (sequence) => {
         let status = 'Unknown';
         if (sequence.hasError) {
@@ -24,13 +25,13 @@ function renderData() {
         else {
             status = 'Ready';
         }
-        console.log( sequence.tag, status );
+        // console.log( sequence.tag, status );
     });
 }
 
 function reset( autoStart ) {
 
-    console.log( "reset", autoStart );
+    // console.log( "reset", autoStart );
 
     macro.add("Action #1 - Basic", (command, info, error) => {
         data.push( command );
@@ -95,8 +96,7 @@ function reset( autoStart ) {
 
     if (autoStart === true) {
         macro.start((error) => {
-            console.log( "finish", error );
-
+            
         });
     }
 }
