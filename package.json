@@ -1,7 +1,7 @@
 {
    "name": "node-macro",
    "description": "Macros for nodejs",
-   "version": "0.9.4",
+   "version": "0.9.3",
    "homepage": "https://github.com/progdesigner/macro-js",
    "repository": {
       "type": "git",
@@ -11,7 +11,8 @@
    "license": "MIT",
    "main": "./index.js",
    "scripts": {
-      "test-basic": "node test/basic-test.js"
+      "test-basic": "node test/basic-test.js",
+      "build": "babel lib -d dist"
    },
    "dependencies": {
       "debug": ">= 2.6.9",
