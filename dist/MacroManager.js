@@ -66,7 +66,13 @@ var MacroManager = function (_CommandManager) {
                 return;
             }
 
-            this._cancelQueue(fromSequence.currentError.description);
+            this._running = false;
+            if (this._completion) {
+                var error = typeof fromSequence.currentError === 'string' ? new Error(fromSequence.currentError) : fromSequence.currentError;
+                this._completion(error);
+            }
+
+            this.clear();
         }
     }, {
         key: '_nextQueue',
