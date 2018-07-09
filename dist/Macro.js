@@ -58,6 +58,9 @@ var Macro = function () {
 
             this._debug("add", tag);
 
+            callback = typeof tag === 'function' ? tag : callback;
+            tag = typeof tag === 'function' ? '_' : tag;
+
             var command = this._manager.commandByName("_DIRECT_COMMAND_");
             var sequence = this._manager.add(command, function (_, info) {
                 _this3._debug("execute >> ", tag);
