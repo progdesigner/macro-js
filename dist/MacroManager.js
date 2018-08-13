@@ -152,6 +152,11 @@ var MacroManager = function (_CommandManager) {
         get: function get() {
             return this._sequenceQueue.length;
         }
+    }, {
+        key: 'isRunning',
+        get: function get() {
+            return this._running;
+        }
     }]);
 
     function MacroManager(props) {

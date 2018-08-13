@@ -19,6 +19,11 @@ var Macro = function () {
         get: function get() {
             return this._manager.numerOfSequences;
         }
+    }, {
+        key: 'isRunning',
+        get: function get() {
+            return this._manager.isRunning;
+        }
     }]);
 
     function Macro(tag) {
