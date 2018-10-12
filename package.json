@@ -1,7 +1,7 @@
 {
    "name": "node-macro",
    "description": "Macros for nodejs",
-   "version": "0.9.10",
+   "version": "0.9.11",
    "homepage": "https://github.com/progdesigner/macro-js",
    "repository": {
       "type": "git",
@@ -15,7 +15,6 @@
       "build": "babel lib -d dist"
    },
    "dependencies": {
-      "debug": ">= 2.6.9",
       "uuid": ">= 3.2.1"
    },
    "devDependencies": {
