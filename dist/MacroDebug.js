@@ -9,7 +9,7 @@ function coerce(val) {
 
 function enabled(name) {
     if (typeof process === 'undefined' || process.type === 'renderer' || process.browser === true || process.__nwjs) {
-        var storage = localstorage();
+        var storage = window.localStorage ? window.localStorage : { getItem: function getItem() {} };
         var DEBUG = storage.getItem('debug');
         if (DEBUG) {
             return true;
