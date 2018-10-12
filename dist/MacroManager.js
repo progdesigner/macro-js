@@ -13,7 +13,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var CommandManager = require('./CommandManager.js');
 var MacroSequence = require('./MacroSequence.js');
-var Debug = require('debug');
+var MacroDebug = require('./MacroDebug');
 var UUID = require('uuid/v1');
 
 var MacroManager = function (_CommandManager) {
@@ -159,20 +159,25 @@ var MacroManager = function (_CommandManager) {
         }
     }]);
 
-    function MacroManager(props) {
+    function MacroManager() {
+        var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
         _classCallCheck(this, MacroManager);
 
-        var _this = _possibleConstructorReturn(this, (MacroManager.__proto__ || Object.getPrototypeOf(MacroManager)).call(this, {}));
+        var _this = _possibleConstructorReturn(this, (MacroManager.__proto__ || Object.getPrototypeOf(MacroManager)).call(this, props));
 
         _this._tag = typeof props.tag === 'string' ? props.tag : 'default';
         _this._skipError = props.skipError === true ? true : false;
         _this._running = false;
         _this._changeHandler = null;
         _this._completion = null;
+        _this._timeout = typeof props.timeout === "number" ? props.timeout : 0;
+        _this._timeoutInstance = null;
         _this._queueID = UUID();
         _this._sequenceQueue = [];
 
-        _this._debug = new Debug('macro:' + _this._tag);
+        _this._debug = new MacroDebug('macro:' + _this._tag);
+        _this._debug.enabled = props.debug === true ? true : _this._debug.enabled;
         return _this;
     }
 
@@ -182,6 +187,11 @@ var MacroManager = function (_CommandManager) {
             if (typeof callback === 'function') {
                 this._changeHandler = callback;
             }
+        }
+    }, {
+        key: 'timeout',
+        value: function timeout(time) {
+            this._timeout = time;
         }
     }, {
         key: 'add',
@@ -201,7 +211,13 @@ var MacroManager = function (_CommandManager) {
                 }
             }
 
-            var sequence = new MacroSequence({ tag: tag, command: command, manager: this, callback: callback });
+            var sequence = new MacroSequence({
+                tag: tag,
+                command: command,
+                manager: this,
+                callback: callback,
+                debug: this._debug.enabled
+            });
             this._sequenceQueue.push(sequence);
             return sequence;
         }
@@ -222,19 +238,38 @@ var MacroManager = function (_CommandManager) {
                     return null;
                 }
             }
-            var sequence = new MacroSequence({ tag: tag, command: command, manager: this, callback: callback });
+            var sequence = new MacroSequence({
+                tag: tag,
+                command: command,
+                manager: this,
+                callback: callback,
+                debug: this._debug.enabled
+            });
             this._sequenceQueue.splice(index, 0, sequence);
             return sequence;
         }
     }, {
         key: 'start',
         value: function start(callback) {
+            var _this2 = this;
+
             if (this._running === true) {
                 return;
             }
 
             this._completion = callback;
             this._startQueue();
+
+            if (this._timeoutInstance) {
+                clearTimeout(this._timeoutInstance);
+                this._timeoutInstance = null;
+            }
+
+            if (this._timeout > 0) {
+                this._timeoutInstance = setTimeout(function () {
+                    _this2._cancelQueue("timeout");
+                }, this._timeout);
+            }
         }
     }, {
         key: 'clear',

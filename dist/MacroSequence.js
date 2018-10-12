@@ -7,7 +7,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Debug = require('debug');
+var MacroDebug = require('./MacroDebug');
 var UUID = require('uuid/v1');
 
 var __DEBUG__ = 0;
@@ -70,7 +70,9 @@ var MacroSequence = function () {
         }
     }]);
 
-    function MacroSequence(props) {
+    function MacroSequence() {
+        var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
         _classCallCheck(this, MacroSequence);
 
         this._tag = typeof props.tag === 'string' ? props.tag : UUID();
@@ -85,7 +87,8 @@ var MacroSequence = function () {
         this._expired = false;
         this._done = false;
 
-        this._debug = new Debug('macro-sequence:' + this._manager.tag + ':' + this._tag);
+        this._debug = new MacroDebug('macro-sequence:' + this._manager.tag + ':' + this._tag);
+        this._debug.enabled = props.debug === true ? true : this._debug.enabled;
     }
 
     _createClass(MacroSequence, [{

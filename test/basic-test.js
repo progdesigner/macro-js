@@ -1,6 +1,6 @@
 var Macro = require('../');
 
-let macro = new Macro("BASIC-TEST", {skipError:true});
+let macro = new Macro("BASIC-TEST", {skipError:true, debug: true});
 let data = [];
 let reseted = false;
 
@@ -96,7 +96,7 @@ function reset( autoStart ) {
 
     if (autoStart === true) {
         macro.start((error) => {
-            
+
         });
     }
 }

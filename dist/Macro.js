@@ -5,8 +5,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Debug = require('debug');
 var MacroManager = require('./MacroManager.js');
+var MacroDebug = require('./MacroDebug.js');
 
 var Macro = function () {
     _createClass(Macro, [{
@@ -35,7 +35,8 @@ var Macro = function () {
 
         options.tag = tag || 'default';
 
-        this._debug = new Debug('macro:' + options.tag);
+        this._debug = new MacroDebug('macro:' + options.tag);
+        this._debug.enabled = options.debug === true ? true : this._debug.enabled;
 
         this._manager = new MacroManager(options);
         this._manager.register("_DIRECT_COMMAND_", function (command, info) {
