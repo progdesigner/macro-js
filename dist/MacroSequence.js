@@ -88,7 +88,7 @@ var MacroSequence = function () {
         this._done = false;
 
         this._debug = new MacroDebug('macro-sequence:' + this._manager.tag + ':' + this._tag);
-        this._debug.enabled = props.debug === true ? true : this._debug.enabled;
+        this._debug.enabled = typeof props.debug === 'boolean' ? props.debug : this._debug.enabled;
     }
 
     _createClass(MacroSequence, [{

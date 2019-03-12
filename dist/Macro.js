@@ -36,7 +36,7 @@ var Macro = function () {
         options.tag = tag || 'default';
 
         this._debug = new MacroDebug('macro:' + options.tag);
-        this._debug.enabled = options.debug === true ? true : this._debug.enabled;
+        this._debug.enabled = typeof options.debug === 'boolean' ? options.debug : this._debug.enabled;
 
         this._manager = new MacroManager(options);
         this._manager.register("_DIRECT_COMMAND_", function (command, info) {

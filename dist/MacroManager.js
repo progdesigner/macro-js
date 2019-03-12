@@ -177,7 +177,7 @@ var MacroManager = function (_CommandManager) {
         _this._sequenceQueue = [];
 
         _this._debug = new MacroDebug('macro:' + _this._tag);
-        _this._debug.enabled = props.debug === true ? true : _this._debug.enabled;
+        _this._debug.enabled = typeof props.debug === 'boolean' ? props.debug : _this._debug.enabled;
         return _this;
     }
 

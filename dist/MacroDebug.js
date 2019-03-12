@@ -25,7 +25,7 @@ function enabled(name) {
 
 function MacroDebug(namespace) {
 
-    function debug() {
+    var debug = function debug() {
 
         if (!debug.enabled) return;
 
@@ -43,7 +43,7 @@ function MacroDebug(namespace) {
 
         var logFn = console.log.bind(console);
         logFn.apply(self, args);
-    }
+    };
 
     debug.namespace = namespace;
     debug.enabled = enabled(namespace);
