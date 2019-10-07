@@ -77,6 +77,8 @@ var MacroManager = function (_CommandManager) {
     }, {
         key: '_nextQueue',
         value: function _nextQueue(fromSequence) {
+            var result = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
             this._performChange();
 
             if (this._sequenceQueue.length === 0) {
@@ -111,7 +113,7 @@ var MacroManager = function (_CommandManager) {
                 return;
             }
 
-            nextSequence.execute(null);
+            nextSequence.execute(result);
 
             this._performChange();
         }

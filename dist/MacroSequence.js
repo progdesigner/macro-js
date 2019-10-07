@@ -148,6 +148,8 @@ var MacroSequence = function () {
     }, {
         key: 'complete',
         value: function complete() {
+            var result = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
             if (this._expired === true) {
                 this._debug('this queue was already expired. ignore error');
                 return;
@@ -170,7 +172,7 @@ var MacroSequence = function () {
 
             this._done = true;
 
-            this._manager._nextQueue(this);
+            this._manager._nextQueue(this, result);
         }
     }]);
 
