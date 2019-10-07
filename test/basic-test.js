@@ -1,6 +1,6 @@
 var Macro = require('../');
 
-let macro = new Macro("BASIC-TEST", {skipError:true, debug: true});
+let macro = new Macro({tag: "BASIC-TEST", skipError:true, debug: true});
 let data = [];
 let reseted = false;
 
