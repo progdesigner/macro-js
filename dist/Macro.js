@@ -1,6 +1,8 @@
 
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,17 +28,17 @@ var Macro = function () {
         }
     }]);
 
-    function Macro(tag) {
+    function Macro(_arg1, _arg2) {
         var _this = this;
-
-        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
         _classCallCheck(this, Macro);
 
-        options.tag = tag || 'default';
+        var options = (typeof _arg1 === 'undefined' ? 'undefined' : _typeof(_arg1)) === 'object' ? _arg1 : (typeof _arg2 === 'undefined' ? 'undefined' : _typeof(_arg2)) === 'object' ? _arg2 : {};
+        options.tag = typeof _arg1 === 'string' ? _arg1 : options.tag || 'default';
 
-        this._debug = new MacroDebug('macro:' + options.tag);
-        this._debug.enabled = typeof options.debug === 'boolean' ? options.debug : this._debug.enabled;
+        var logNameSpace = 'macro:' + options.tag;
+        var logEnabled = options.debug === true ? true : false;
+        this._debug = new MacroDebug(logNameSpace, logEnabled);
 
         this._manager = new MacroManager(options);
         this._manager.register("_DIRECT_COMMAND_", function (command, info) {

@@ -178,8 +178,9 @@ var MacroManager = function (_CommandManager) {
         _this._queueID = UUID();
         _this._sequenceQueue = [];
 
-        _this._debug = new MacroDebug('macro:' + _this._tag);
-        _this._debug.enabled = typeof props.debug === 'boolean' ? props.debug : _this._debug.enabled;
+        var logNameSpace = 'macro:' + _this._tag;
+        var logEnabled = props.debug === true ? true : false;
+        _this._debug = new MacroDebug(logNameSpace, logEnabled);
         return _this;
     }
 

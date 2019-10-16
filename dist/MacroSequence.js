@@ -87,8 +87,9 @@ var MacroSequence = function () {
         this._expired = false;
         this._done = false;
 
-        this._debug = new MacroDebug('macro-sequence:' + this._manager.tag + ':' + this._tag);
-        this._debug.enabled = typeof props.debug === 'boolean' ? props.debug : this._debug.enabled;
+        var logNameSpace = 'macro-sequence:' + this._manager.tag + ':' + this._tag;
+        var logEnabled = props.debug === true ? true : false;
+        this._debug = new MacroDebug(logNameSpace, logEnabled);
     }
 
     _createClass(MacroSequence, [{
@@ -118,7 +119,11 @@ var MacroSequence = function () {
         value: function retry() {
             var _this = this;
 
+            var info = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+
             setTimeout(function () {
+                _this._currentInfo = info || _this._currentInfo;
                 _this.execute(_this._currentInfo);
             }, 100);
         }

@@ -23,13 +23,13 @@ function enabled(name) {
     return false;
 }
 
-function MacroDebug(namespace) {
+function MacroDebug(namespace, enabledFlag) {
 
-    var debug = function debug() {
+    var logger = function debug() {
 
-        if (!debug.enabled) return;
+        if (!logger.enabled) return;
 
-        var self = debug;
+        var self = logger;
 
         // turn the `arguments` into a proper Array
         var args = new Array(arguments.length);
@@ -45,8 +45,8 @@ function MacroDebug(namespace) {
         logFn.apply(self, args);
     };
 
-    debug.namespace = namespace;
-    debug.enabled = enabled(namespace);
+    logger.namespace = namespace;
+    logger.enabled = typeof enabledFlag === 'boolean' ? enabledFlag : enabled(namespace);
 
-    return debug;
+    return logger;
 }
