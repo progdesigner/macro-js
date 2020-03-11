@@ -8,7 +8,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MacroDebug = require('./MacroDebug');
-var UUID = require('uuid/v1');
+
+var _require = require('uuid'),
+    UUID = _require.v1;
 
 var __DEBUG__ = 0;
 
@@ -103,7 +105,7 @@ var MacroSequence = function () {
             }
 
             this._running = true;
-            this._currentInfo = info;
+            this._currentInfo = info || {};
             this._executeCount = this._executeCount + 1;
 
             this._manager._performChange();

@@ -97,7 +97,7 @@ var Macro = function () {
             var sequence = this._manager.add(command, function (_, info) {
                 _this4._debug("delay >> ", time);
                 setTimeout(function () {
-                    sequence.complete();
+                    sequence.complete(info);
                 }, time);
             });
             if (!sequence) {

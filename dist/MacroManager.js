@@ -14,7 +14,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CommandManager = require('./CommandManager.js');
 var MacroSequence = require('./MacroSequence.js');
 var MacroDebug = require('./MacroDebug');
-var UUID = require('uuid/v1');
+
+var _require = require('uuid'),
+    UUID = _require.v1;
 
 var MacroManager = function (_CommandManager) {
     _inherits(MacroManager, _CommandManager);
