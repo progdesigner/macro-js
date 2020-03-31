@@ -113,13 +113,13 @@ var Macro = function () {
             var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
             this._debug("start");
-            this._manager.start(function (error) {
+            this._manager.start(function (error, info) {
 
-                _this5._debug("finish: ", error);
+                _this5._debug("finish: ", error, info);
 
                 if (typeof callback === 'function') {
                     setTimeout(function () {
-                        callback(error);
+                        callback(error, info);
                     }, 0);
                 }
             });

@@ -31,11 +31,13 @@ var MacroManager = function (_CommandManager) {
     }, {
         key: '_done',
         value: function _done() {
+            var result = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
             this._performChange();
 
             this._running = false;
             if (this._completion) {
-                this._completion(null);
+                this._completion(null, result);
             }
 
             this.clear();
@@ -48,7 +50,7 @@ var MacroManager = function (_CommandManager) {
             this._running = false;
             if (this._completion) {
                 var error = new Error(reason);
-                this._completion(error);
+                this._completion(error, null);
             }
 
             this.clear();
@@ -71,7 +73,7 @@ var MacroManager = function (_CommandManager) {
             this._running = false;
             if (this._completion) {
                 var error = typeof fromSequence.currentError === 'string' ? new Error(fromSequence.currentError) : fromSequence.currentError;
-                this._completion(error);
+                this._completion(error, null);
             }
 
             this.clear();
@@ -84,7 +86,7 @@ var MacroManager = function (_CommandManager) {
             this._performChange();
 
             if (this._sequenceQueue.length === 0) {
-                this._done();
+                this._done(result);
                 return;
             }
 
@@ -106,7 +108,7 @@ var MacroManager = function (_CommandManager) {
 
             var nextSequence = this.currentSequence;
             if (!nextSequence) {
-                this._done();
+                this._done(result);
                 return;
             }
 
